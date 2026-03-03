@@ -124,3 +124,11 @@ When Airflow starts for the first time, it needs to:
 If this step is skipped → webserver/scheduler will fail.
 So airflow-init prepares everything.
 ```
+
+# Interact with postgres from Inside container
+```sh
+docker ps | grep "postgres"
+docker exec -it airflow317_docker-postgres-1 psql -U airflow
+\dt  # Display Tables
+
+```

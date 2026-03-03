@@ -12,8 +12,16 @@ Use the decorator:
 ```
 
 ## 2. How DAGs Sync with Docker
-
+```text
 DAGs are automatically synchronized with the Docker container using bind mounts. Any file you put in your project's `dags` folder will be available in the Docker container at `/opt/airflow/dags`.
+
+You can verify bind mount as below in docker container
+Source (Host)	                             Destination (Container)
+/home/ksl/code/airflow3.1.7_docker/dags     ⁠/opt/airflow/dags
+/home/ksl/code/airflow3.1.7_docker/logs⁠    	/opt/airflow/logs
+/home/ksl/code/airflow3.1.7_docker/config⁠  	/opt/airflow/config
+/home/ksl/code/airflow3.1.7_docker/plugins⁠ 	/opt/airflow/plugins
+```
 
 ## 3. Airflow Config Creation
 
