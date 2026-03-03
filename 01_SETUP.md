@@ -104,3 +104,23 @@ It defines:
 
 Think of it as:
 ⚙ Internal Airflow engine configuration
+
+# What Is airflow-init?
+```text
+airflow-init is a one-time initialization service defined in docker-compose.yaml.
+It is not a permanent Airflow component like:
+scheduler
+webserver
+worker
+It runs once to prepare Airflow before starting other services.
+
+Why Do We Need It?
+When Airflow starts for the first time, it needs to:
+	Create metadata database tables
+	Run database migrations
+	Create admin user
+	Set correct folder permissions
+
+If this step is skipped → webserver/scheduler will fail.
+So airflow-init prepares everything.
+```
