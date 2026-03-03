@@ -51,3 +51,7 @@ airflow config get-value core dags_folder
 ```bash
 docker compose config
 ```
+
+## DAG Versioning
+create new file 2_dag_versioning.py
+If you do any changes to existing dags then it will create version sl ike v1,v2 etc
