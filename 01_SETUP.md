@@ -80,3 +80,27 @@ This will run the Docker containers in detached mode and create a stack under `a
 ## 7. UI Intro
 - **Asset**
 - **XCOM**: Helps to build stateful DAGs
+
+
+## 8. What is the role of docker-compose.yaml file and airflow.cfg file in Airflow 3.1.7 version, how they differ
+### Role of airflow.cfg
+Airflow Config Creation:
+When you create your first DAG, the `config/airflow.cfg` file will be created automatically. 
+
+This file belongs to Airflow itself.
+It defines:
+
+	DAG folder location
+
+	Executor type
+
+	Logging settings
+
+	Scheduler behavior
+
+	Timezone
+
+	Security configs
+
+Think of it as:
+⚙ Internal Airflow engine configuration
