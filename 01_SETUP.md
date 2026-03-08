@@ -74,6 +74,31 @@ This will create `pyproject.toml`.
 ```sh
 docker compose up -d
 ```
+```text
+1. What happens when you run docker compose up -d
+
+When you run:
+
+docker compose up -d
+
+Docker Compose looks for a file called:
+
+docker-compose.yml
+
+in your project folder.
+
+This file tells Docker:
+
+	Which containers to start
+
+	Which Docker images to use
+
+	Which ports to expose
+
+	Which folders from your VS Code project should be mounted inside the container
+
+So Docker Compose reads this file, not VS Code.
+```
 
 This will run the Docker containers in detached mode and create a stack under `airflowtutorial` in Docker Desktop.
 
@@ -120,10 +145,79 @@ When Airflow starts for the first time, it needs to:
 	Run database migrations
 	Create admin user
 	Set correct folder permissions
-
+2) p
 If this step is skipped → webserver/scheduler will fail.
 So airflow-init prepares everything.
 ```
+
+# Key Differences between DOcker and Docker Compose File
+```text| Feature       | Docker                      | Docker Compose                   |
+| ------------- | --------------------------- | -------------------------------- |
+| Purpose       | Run single container        | Run multi-container applications |
+| Command style | CLI commands                | YAML configuration               |
+| Configuration | Mostly command line         | `docker-compose.yml` file        |
+| Use case      | Simple apps                 | Microservices apps               |
+| Startup       | Run containers individually | Start all containers together    |
+
+```
+
+# What is Service
+```text
+In docker compose world, container is called Service
+
+```
+
+# Always use double spaces when working with YAML
+
+# Healthcheck Importance in multi-service(muliple container within same n/w) systems
+## 1 Why healthcheck is needed in multi-service(muliple container within same n/w) systems
+```text
+In many systems (like Apache Airflow, web apps, microservices), services depend on each other.
+Example architecture:
+Web App
+   │
+   ▼
+API Service
+   │
+   ▼
+Database
+
+Problem: Even if Docker starts the database container first, it may not yet be ready to accept connections.
+Example timeline:
+Container started → Database still initializing → App tries to connect → FAIL
+Healthcheck solves this.
+```
+## 2 What healthcheck does
+```text
+Healthcheck periodically runs a test command inside the container to verify that the service is working.
+Example check:
+Is port open?
+Is HTTP endpoint responding?
+Is database accepting connections?
+If the test passes → container status = healthy
+
+If it fails → container status = unhealthy
+```
+## 3 Where healthcheck appears
+Inside docker-compose.yml
+Example:
+```yaml
+services:
+  web:
+    image: nginx
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+```
+# Docker storage
+| Bind Mount           | Named Volume        |
+| -------------------- | ------------------- |
+| Uses host directory  | Managed by Docker   |
+| Good for development | Good for production |
+| Requires full path   | Only volume name    |
+| Easy debugging       | Better isolation    |
 
 # Interact with postgres from Inside container
 ```sh
@@ -132,3 +226,11 @@ docker exec -it airflow317_docker-postgres-1 psql -U airflow
 \dt  # Display Tables
 
 ```
+
+# 
+
+## Vs Code with Docker
+1) Install Material thing Icon
+2) pip install uv
+3) uv init # This will create virutal env for me
+
