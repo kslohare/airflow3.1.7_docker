@@ -55,3 +55,14 @@ docker compose config
 ## DAG Versioning
 create new file 2_dag_versioning.py
 If you do any changes to existing dags then it will create version sl ike v1,v2 etc
+
+# XCOM Auto
+
+# Xcom manual using **xkwargs
+
+# Parellel tasks
+
+# Branch Task
+
+# Dags Orchestrations
+
