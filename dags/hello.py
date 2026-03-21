@@ -1,8 +1,10 @@
 from airflow.sdk import dag, task
 from datetime import datetime
+from airflow.timetables.trigger import CronTriggerTimetable
 
 @dag(
-    schedule="@daily",
+    dag_id="hello_dag",
+    schedule=CronTriggerTimetable("*/5 * * * *", timezone="UTC"),
     start_date=datetime(2023, 1, 1),
     catchup=False,
     tags=["example"],
